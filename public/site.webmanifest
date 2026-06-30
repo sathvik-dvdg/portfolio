@@ -1,0 +1,8 @@
+{
+  "name": "Sathvik T Devadiga Portfolio",
+  "short_name": "Sathvik",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050D1A",
+  "theme_color": "#4ECDC4"
+}
