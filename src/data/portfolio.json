@@ -1,17 +1,33 @@
 {
   "navItems": [
-    { "label": "About", "href": "#about" },
-    { "label": "Skills", "href": "#skills" },
-    { "label": "Projects", "href": "#projects" },
-    { "label": "Achievements", "href": "#achievements" },
-    { "label": "Contact", "href": "#contact" }
+    {
+      "label": "About",
+      "href": "#about"
+    },
+    {
+      "label": "Skills",
+      "href": "#skills"
+    },
+    {
+      "label": "Projects",
+      "href": "#projects"
+    },
+    {
+      "label": "Achievements",
+      "href": "#achievements"
+    },
+    {
+      "label": "Contact",
+      "href": "#contact"
+    }
   ],
   "heroChips": [
     "Cloud Infrastructure",
     "DevOps",
     "Full-Stack Apps",
     "Machine Learning",
-    "Graph Neural Networks"
+    "Graph Neural Networks",
+    "networkings"
   ],
   "heroStats": [
     "5+ Projects",
@@ -24,53 +40,102 @@
     "Currently deepening my skills in cloud infrastructure and DevOps (AWS, Docker, CI/CD pipelines). Looking for a software engineering role where I can work on production systems that combine backend architecture with applied ML."
   ],
   "stats": [
-    { "value": "8.14", "label": "SGPA - 5th Semester" },
-    { "value": "5+", "label": "Engineering Projects" },
-    { "value": "5+", "label": "Open Source PRs Merged" },
-    { "value": "SIH 2025", "label": "Smart India Hackathon" }
+    {
+      "value": "8.14",
+      "label": "SGPA - 5th Semester"
+    },
+    {
+      "value": "5+",
+      "label": "Engineering Projects"
+    },
+    {
+      "value": "5+",
+      "label": "Open Source PRs Merged"
+    },
+    {
+      "value": "SIH 2025",
+      "label": "Smart India Hackathon"
+    }
   ],
   "skillGroups": [
     {
       "title": "Languages",
       "icon": "Code2",
       "note": "Java for problem-solving, Python for ML/backend, JavaScript/TypeScript for full-stack.",
-      "skills": ["Java", "Python", "JavaScript", "SQL"]
+      "skills": [
+        "Java",
+        "Python",
+        "JavaScript",
+        "SQL"
+      ]
     },
     {
       "title": "Frameworks",
       "icon": "Server",
       "note": "Full-stack and backend frameworks for building robust API endpoints and mobile experiences.",
-      "skills": ["Node.js", "Express.js", "FastAPI", "Flask", "React.js", "React Native"]
+      "skills": [
+        "Node.js",
+        "Express.js",
+        "FastAPI",
+        "Flask",
+        "React.js",
+        "React Native"
+      ]
     },
     {
       "title": "Databases",
       "icon": "Database",
       "note": "Relational and document storage solutions modeled for scalable workflows.",
-      "skills": ["MongoDB", "PostgreSQL", "Redis", "SQLite"]
+      "skills": [
+        "MongoDB",
+        "PostgreSQL",
+        "Redis",
+        "SQLite"
+      ]
     },
     {
       "title": "Cloud",
       "icon": "Cloud",
       "note": "Hosting and virtualization deployment environments.",
-      "skills": ["AWS (EC2, S3, VPC)", "Render", "Expo Application Services (EAS)"]
+      "skills": [
+        "AWS (EC2, S3, VPC)",
+        "Render",
+        "Expo Application Services (EAS)"
+      ]
     },
     {
       "title": "DevOps",
       "icon": "Terminal",
       "note": "Containerization, automated version control, and Unix operations.",
-      "skills": ["Docker", "Git/GitHub", "Linux", "CI/CD basics"]
+      "skills": [
+        "Docker",
+        "Git/GitHub",
+        "Linux",
+        "CI/CD basics"
+      ]
     },
     {
       "title": "AI / ML",
       "icon": "BrainCircuit",
       "note": "Deep learning frameworks, custom graph models, and computer vision pipelines.",
-      "skills": ["PyTorch", "PyTorch Geometric", "GraphSAGE", "Scikit-learn", "OpenCV", "MediaPipe"]
+      "skills": [
+        "PyTorch",
+        "PyTorch Geometric",
+        "GraphSAGE",
+        "Scikit-learn",
+        "OpenCV",
+        "MediaPipe"
+      ]
     },
     {
       "title": "Tools",
       "icon": "Activity",
       "note": "API testing, crash monitoring, and workflow automations.",
-      "skills": ["Postman", "Sentry", "n8n"]
+      "skills": [
+        "Postman",
+        "Sentry",
+        "n8n"
+      ]
     }
   ],
   "projects": [
@@ -80,8 +145,18 @@
       "meta": "Cyber Defense - Python, GNN, FastAPI",
       "icon": "Shield",
       "description": "GraphSentinel detects network attacks (DDoS, PortScan, Botnet, SSH-Patator, DoS Hulk) by modeling traffic as a graph rather than isolated flow records. It classifies malicious nodes in real time using a GraphSAGE model trained on CICIDS2017.",
-      "metrics": ["99.57% Accuracy", "0.9975 AUC-ROC", "Real-Time Inference"],
-      "stack": ["Python", "PyTorch", "PyTorch Geometric", "GraphSAGE", "Scikit-learn"],
+      "metrics": [
+        "99.57% Accuracy",
+        "0.9975 AUC-ROC",
+        "Real-Time Inference"
+      ],
+      "stack": [
+        "Python",
+        "PyTorch",
+        "PyTorch Geometric",
+        "GraphSAGE",
+        "Scikit-learn"
+      ],
       "href": "https://github.com/sathvik-dvdg/GraphSentinal",
       "visual": "graph"
     },
@@ -91,8 +166,20 @@
       "meta": "Internship - Social - Mobile App (Feb 2026 - Present)",
       "icon": "MapPin",
       "description": "Orbit is a mobile social platform for discovering local community events and connecting with nearby users. Built with real-time chat via WebSockets, geolocation-based event discovery, and a containerized backend with Sentry error monitoring.",
-      "metrics": ["WebSocket Chat", "Geo-Discovery", "Production Monorepo"],
-      "stack": ["React Native", "Node.js", "Express.js", "MongoDB", "WebSocket", "Docker", "Sentry"],
+      "metrics": [
+        "WebSocket Chat",
+        "Geo-Discovery",
+        "Production Monorepo"
+      ],
+      "stack": [
+        "React Native",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "WebSocket",
+        "Docker",
+        "Sentry"
+      ],
       "href": "https://github.com/venkateshkamath/Orbit-App",
       "visual": "social"
     },
@@ -102,8 +189,17 @@
       "meta": "Hackathon - Privacy - Python, React",
       "icon": "EyeOff",
       "description": "PII Shield detects and redacts sensitive information (Aadhaar, PAN numbers) from documents entirely on the user's device, with no data ever leaving their machine. Features a local OCR pipeline and a stateless, zero-retention backend.",
-      "metrics": ["36-Hour Hackathon", "Local OCR", "Zero Data Retention"],
-      "stack": ["Python", "FastAPI", "Tesseract OCR", "React"],
+      "metrics": [
+        "36-Hour Hackathon",
+        "Local OCR",
+        "Zero Data Retention"
+      ],
+      "stack": [
+        "Python",
+        "FastAPI",
+        "Tesseract OCR",
+        "React"
+      ],
       "href": "https://github.com/sathvik-dvdg/pii-shield",
       "visual": "shield"
     },
@@ -113,8 +209,18 @@
       "meta": "Hackathon - Healthcare - FastAPI, Celery",
       "icon": "Hospital",
       "description": "HVSapp streamlines patient handoffs and medication tracking between healthcare staff, using speech-to-text to reduce manual data-entry errors. Features background transcription task queues and PHI field encryption.",
-      "metrics": ["48-Hour Hackathon", "Speech-to-Text ASR", "PHI Encryption"],
-      "stack": ["FastAPI", "PostgreSQL", "Celery", "React Native", "Docker"],
+      "metrics": [
+        "48-Hour Hackathon",
+        "Speech-to-Text ASR",
+        "PHI Encryption"
+      ],
+      "stack": [
+        "FastAPI",
+        "PostgreSQL",
+        "Celery",
+        "React Native",
+        "Docker"
+      ],
       "href": "https://github.com/sathvik-dvdg/HVSapp",
       "visual": "health"
     },
@@ -124,8 +230,18 @@
       "meta": "Solo - Full-Stack E-commerce",
       "icon": "ShoppingCart",
       "description": "A complete e-commerce mobile app with product browsing, cart management, and checkout, built and deployed independently. Configured with rate limiting, database connection pooling, and error monitoring.",
-      "metrics": ["Connection Pooling", "Rate Limiting", "Sentry Monitoring"],
-      "stack": ["React Native", "Node.js", "Express.js", "MongoDB", "Sentry"],
+      "metrics": [
+        "Connection Pooling",
+        "Rate Limiting",
+        "Sentry Monitoring"
+      ],
+      "stack": [
+        "React Native",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "Sentry"
+      ],
       "href": "https://github.com/sathvik-dvdg/shopping-app",
       "visual": "cart"
     }
@@ -210,14 +326,32 @@
     }
   ],
   "openSourceHighlights": [
-    { "value": "5+", "label": "Merged PRs" },
-    { "value": "22%", "label": "Payload Reduction" },
-    { "value": "JWT", "label": "Session Security" }
+    {
+      "value": "5+",
+      "label": "Merged PRs"
+    },
+    {
+      "value": "22%",
+      "label": "Payload Reduction"
+    },
+    {
+      "value": "JWT",
+      "label": "Session Security"
+    }
   ],
   "footerLinks": [
-    { "label": "GitHub", "href": "https://github.com/sathvik-dvdg" },
-    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/sathvik-devadiga/" },
-    { "label": "Email", "href": "mailto:sathvik.devadiga88@gmail.com" }
+    {
+      "label": "GitHub",
+      "href": "https://github.com/sathvik-dvdg"
+    },
+    {
+      "label": "LinkedIn",
+      "href": "https://www.linkedin.com/in/sathvik-devadiga/"
+    },
+    {
+      "label": "Email",
+      "href": "mailto:sathvik.devadiga88@gmail.com"
+    }
   ],
   "resumeHref": "/sathvik-devadiga-resume-2026.pdf",
   "profileJsonLd": {
