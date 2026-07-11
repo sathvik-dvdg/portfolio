@@ -353,6 +353,7 @@
     }
   ],
   "resumeHref": "/sathvik-devadiga-resume-2026.pdf",
+  "tailoredResumes": [],
   "profileJsonLd": {
     "@context": "https://schema.org",
     "@type": "Person",

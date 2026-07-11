@@ -80,6 +80,13 @@ export const profileJsonLdSchema = z.object({
   knowsAbout: z.array(z.string())
 });
 
+export const tailoredResumeSchema = z.object({
+  role: z.string().min(1, "Role is required").regex(/^[a-z0-9-]+$/, "Role must be lowercase alphanumeric and hyphens only"),
+  href: z.string().min(1, "Resume file path is required").refine(val => val.startsWith("/") && !val.startsWith("//"), {
+    message: "Path must be a relative same-origin path starting with /"
+  })
+});
+
 export const portfolioSchema = z.object({
   navItems: z.array(navItemSchema).min(1),
   heroChips: z.array(z.string().min(1)).min(1),
@@ -94,6 +101,16 @@ export const portfolioSchema = z.object({
   openSourceHighlights: z.array(openSourceHighlightSchema),
   footerLinks: z.array(footerLinkSchema),
   resumeHref: z.string().min(1),
+  tailoredResumes: z.array(tailoredResumeSchema).default([]).superRefine((items, ctx) => {
+    const roles = items.map(item => item.role);
+    const duplicates = roles.filter((role, index) => roles.indexOf(role) !== index);
+    if (duplicates.length > 0) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `Duplicate role slugs are not allowed: ${[...new Set(duplicates)].join(", ")}`
+      });
+    }
+  }),
   profileJsonLd: profileJsonLdSchema
 });
 
@@ -102,3 +119,4 @@ export type ProjectData = z.infer<typeof projectSchema>;
 export type ProjectVisual = ProjectData["visual"];
 export type AchievementData = z.infer<typeof achievementSchema>;
 export type EducationData = z.infer<typeof educationSchema>;
+export type TailoredResumeData = z.infer<typeof tailoredResumeSchema>;

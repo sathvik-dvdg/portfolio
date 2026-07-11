@@ -69,6 +69,28 @@ export default function AdminDashboardPage() {
 
   const handleSave = async () => {
     if (!data || !writable) return;
+
+    // Validate tailored resumes client-side before sending
+    const resumes = data.tailoredResumes || [];
+    const roles = resumes.map(r => r.role);
+    const duplicates = roles.filter((r, idx) => roles.indexOf(r) !== idx);
+    if (duplicates.length > 0) {
+      showToast(`Duplicate roles are not allowed: ${[...new Set(duplicates)].join(", ")}`, "error");
+      return;
+    }
+
+    const invalidRole = resumes.find(r => !/^[a-z0-9-]+$/.test(r.role));
+    if (invalidRole) {
+      showToast(`Invalid role format: "${invalidRole.role}". Slugs must be lowercase alphanumeric and hyphens only (e.g. "devops").`, "error");
+      return;
+    }
+
+    const invalidHref = resumes.find(r => !r.href.startsWith("/") || r.href.startsWith("//"));
+    if (invalidHref) {
+      showToast(`Invalid path format: "${invalidHref.href}". Paths must start with "/" and cannot be absolute or protocol-relative (e.g. "//").`, "error");
+      return;
+    }
+
     setSaving(true);
 
     try {

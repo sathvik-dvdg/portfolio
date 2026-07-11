@@ -224,6 +224,73 @@ export function ContactMetaEditor({ data, onChange, disabled }: ContactMetaEdito
             disabled={disabled}
           />
         </div>
+
+        {/* Tailored Resumes List */}
+        <div className="admin-field" style={{ marginTop: 24, paddingTop: 16, borderTop: "1px solid var(--border)" }}>
+          <label className="admin-label" style={{ fontWeight: 600, fontSize: "0.95rem" }}>Tailored Resumes</label>
+          <p className="admin-label" style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginTop: -4, marginBottom: 12 }}>
+            Map custom role slugs (e.g. <code>devops</code>) to tailored resume PDFs (e.g. <code>/sathvik-resume-devops.pdf</code>). Access at <code>yourdomain.com/resume/[role]</code>.
+          </p>
+
+          {(data.tailoredResumes || []).map((resume, index) => (
+            <div key={index} style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 8 }}>
+              <div style={{ flex: 1 }}>
+                <input
+                  className="admin-input"
+                  placeholder="Role slug (e.g. devops)"
+                  value={resume.role}
+                  onChange={(e) => {
+                    const updated = [...(data.tailoredResumes || [])];
+                    updated[index] = { ...resume, role: e.target.value };
+                    onChange({ ...data, tailoredResumes: updated });
+                  }}
+                  disabled={disabled}
+                />
+              </div>
+              <div style={{ flex: 2 }}>
+                <input
+                  className="admin-input"
+                  placeholder="File path (e.g. /sathvik-resume-devops.pdf)"
+                  value={resume.href}
+                  onChange={(e) => {
+                    const updated = [...(data.tailoredResumes || [])];
+                    updated[index] = { ...resume, href: e.target.value };
+                    onChange({ ...data, tailoredResumes: updated });
+                  }}
+                  disabled={disabled}
+                />
+              </div>
+              {!disabled && (
+                <button
+                  type="button"
+                  className="admin-btn admin-btn-danger admin-btn-icon"
+                  onClick={() => {
+                    if (window.confirm(`Delete tailored resume link for "${resume.role || "unnamed role"}"?`)) {
+                      const updated = (data.tailoredResumes || []).filter((_, i) => i !== index);
+                      onChange({ ...data, tailoredResumes: updated });
+                    }
+                  }}
+                >
+                  <Trash2 size={14} />
+                </button>
+              )}
+            </div>
+          ))}
+
+          {!disabled && (
+            <button
+              type="button"
+              className="admin-btn admin-btn-outline admin-btn-sm"
+              onClick={() => {
+                const current = data.tailoredResumes || [];
+                onChange({ ...data, tailoredResumes: [...current, { role: "", href: "" }] });
+              }}
+              style={{ marginTop: 8 }}
+            >
+              <Plus size={14} /> Add Tailored Resume
+            </button>
+          )}
+        </div>
       </div>
 
       {deleteLinkIndex !== null && (
