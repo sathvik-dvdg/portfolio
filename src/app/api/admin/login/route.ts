@@ -53,11 +53,16 @@ export async function POST(request: NextRequest) {
   }
 
   // Create JWT session token
-  const token = await createSession();
+  try {
+    const token = await createSession();
 
-  // Set httpOnly, secure, sameSite=strict cookie
-  const response = NextResponse.json({ success: true });
-  setSessionCookie(response, token);
+    // Set httpOnly, secure, sameSite=strict cookie
+    const response = NextResponse.json({ success: true });
+    setSessionCookie(response, token);
 
-  return response;
+    return response;
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Session creation failed";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }
