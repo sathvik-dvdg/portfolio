@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getRepository } from "@/lib/repository/repositoryFactory";
 import { portfolioSchema } from "@/lib/schema/portfolio.schema";
-import { validateCsrf } from "@/lib/auth/csrf";
 import { ZodError } from "zod";
 
 /**
@@ -30,14 +29,6 @@ export async function GET() {
  * Dev-only write; prod returns 403 with guidance.
  */
 export async function PATCH(request: NextRequest) {
-  // CSRF validation
-  if (!validateCsrf(request)) {
-    return NextResponse.json(
-      { error: "Invalid CSRF token. Please reload the page and try again." },
-      { status: 403 }
-    );
-  }
-
   const repo = getRepository();
 
   // Check if writable

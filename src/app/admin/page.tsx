@@ -33,10 +33,6 @@ const tabs: { id: Tab; label: string; icon: typeof LayoutDashboard }[] = [
   { id: "contact", label: "Contact & Meta", icon: Contact }
 ];
 
-function getCsrfToken(): string {
-  const match = document.cookie.match(/(?:^|;\s*)csrf_token=([^;]*)/);
-  return match ? decodeURIComponent(match[1]) : "";
-}
 
 export default function AdminDashboardPage() {
   const router = useRouter();
@@ -79,8 +75,7 @@ export default function AdminDashboardPage() {
       const res = await fetch("/api/admin/update", {
         method: "PATCH",
         headers: {
-          "Content-Type": "application/json",
-          "x-csrf-token": getCsrfToken()
+          "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
       });
