@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getRepository } from "@/lib/repository/repositoryFactory";
 import { portfolioSchema } from "@/lib/schema/portfolio.schema";
+import { checkApiRateLimit } from "@/lib/auth/rate-limit";
 import { ZodError } from "zod";
 
 /**
@@ -18,6 +19,7 @@ export async function GET() {
       writable: repo.isWritable()
     });
   } catch (err) {
+    console.error("[api/admin/update] GET error:", err);
     const message = err instanceof Error ? err.message : "Failed to load portfolio data";
     return NextResponse.json({ error: message }, { status: 500 });
   }
@@ -29,6 +31,18 @@ export async function GET() {
  * Dev-only write; prod returns 403 with guidance.
  */
 export async function PATCH(request: NextRequest) {
+  // Rate limiting by IP
+  const forwarded = request.headers.get("x-forwarded-for");
+  const ip = forwarded?.split(",")[0]?.trim() || "unknown";
+  const rateLimitResult = checkApiRateLimit(ip);
+
+  if (!rateLimitResult.success) {
+    return NextResponse.json(
+      { error: "Too many updates. Please try again later." },
+      { status: 429 }
+    );
+  }
+
   const repo = getRepository();
 
   // Check if writable
@@ -73,6 +87,7 @@ export async function PATCH(request: NextRequest) {
       );
     }
 
+    console.error("[api/admin/update] PATCH error:", err);
     const message = err instanceof Error ? err.message : "Failed to save portfolio data";
     return NextResponse.json({ error: message }, { status: 500 });
   }
