@@ -1,0 +1,247 @@
+{
+  "navItems": [
+    { "label": "About", "href": "#about" },
+    { "label": "Skills", "href": "#skills" },
+    { "label": "Projects", "href": "#projects" },
+    { "label": "Achievements", "href": "#achievements" },
+    { "label": "Contact", "href": "#contact" }
+  ],
+  "heroChips": [
+    "Cloud Infrastructure",
+    "DevOps",
+    "Full-Stack Apps",
+    "Machine Learning",
+    "Graph Neural Networks"
+  ],
+  "heroStats": [
+    "5+ Projects",
+    "5+ Open Source PRs",
+    "99%+ ML Accuracy",
+    "SIH 2025"
+  ],
+  "aboutParagraphs": [
+    "Computer Science student at Canara Engineering College, Mangalore, graduating in 2026. I build across backend systems, full-stack mobile applications, and graph-based machine learning. Currently working as a Software Engineering Intern at Orbit (since Feb 24, 2026).",
+    "Currently deepening my skills in cloud infrastructure and DevOps (AWS, Docker, CI/CD pipelines). Looking for a software engineering role where I can work on production systems that combine backend architecture with applied ML."
+  ],
+  "stats": [
+    { "value": "8.14", "label": "SGPA - 5th Semester" },
+    { "value": "5+", "label": "Engineering Projects" },
+    { "value": "5+", "label": "Open Source PRs Merged" },
+    { "value": "SIH 2025", "label": "Smart India Hackathon" }
+  ],
+  "skillGroups": [
+    {
+      "title": "Languages",
+      "icon": "Code2",
+      "note": "Java for problem-solving, Python for ML/backend, JavaScript/TypeScript for full-stack.",
+      "skills": ["Java", "Python", "JavaScript", "SQL"]
+    },
+    {
+      "title": "Frameworks",
+      "icon": "Server",
+      "note": "Full-stack and backend frameworks for building robust API endpoints and mobile experiences.",
+      "skills": ["Node.js", "Express.js", "FastAPI", "Flask", "React.js", "React Native"]
+    },
+    {
+      "title": "Databases",
+      "icon": "Database",
+      "note": "Relational and document storage solutions modeled for scalable workflows.",
+      "skills": ["MongoDB", "PostgreSQL", "Redis", "SQLite"]
+    },
+    {
+      "title": "Cloud",
+      "icon": "Cloud",
+      "note": "Hosting and virtualization deployment environments.",
+      "skills": ["AWS (EC2, S3, VPC)", "Render", "Expo Application Services (EAS)"]
+    },
+    {
+      "title": "DevOps",
+      "icon": "Terminal",
+      "note": "Containerization, automated version control, and Unix operations.",
+      "skills": ["Docker", "Git/GitHub", "Linux", "CI/CD basics"]
+    },
+    {
+      "title": "AI / ML",
+      "icon": "BrainCircuit",
+      "note": "Deep learning frameworks, custom graph models, and computer vision pipelines.",
+      "skills": ["PyTorch", "PyTorch Geometric", "GraphSAGE", "Scikit-learn", "OpenCV", "MediaPipe"]
+    },
+    {
+      "title": "Tools",
+      "icon": "Activity",
+      "note": "API testing, crash monitoring, and workflow automations.",
+      "skills": ["Postman", "Sentry", "n8n"]
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj_graphsentinel",
+      "name": "GraphSentinel",
+      "meta": "Cyber Defense - Python, GNN, FastAPI",
+      "icon": "Shield",
+      "description": "GraphSentinel detects network attacks (DDoS, PortScan, Botnet, SSH-Patator, DoS Hulk) by modeling traffic as a graph rather than isolated flow records. It classifies malicious nodes in real time using a GraphSAGE model trained on CICIDS2017.",
+      "metrics": ["99.57% Accuracy", "0.9975 AUC-ROC", "Real-Time Inference"],
+      "stack": ["Python", "PyTorch", "PyTorch Geometric", "GraphSAGE", "Scikit-learn"],
+      "href": "https://github.com/sathvik-dvdg/GraphSentinal",
+      "visual": "graph"
+    },
+    {
+      "id": "proj_orbit",
+      "name": "Orbit",
+      "meta": "Internship - Social - Mobile App (Feb 2026 - Present)",
+      "icon": "MapPin",
+      "description": "Orbit is a mobile social platform for discovering local community events and connecting with nearby users. Built with real-time chat via WebSockets, geolocation-based event discovery, and a containerized backend with Sentry error monitoring.",
+      "metrics": ["WebSocket Chat", "Geo-Discovery", "Production Monorepo"],
+      "stack": ["React Native", "Node.js", "Express.js", "MongoDB", "WebSocket", "Docker", "Sentry"],
+      "href": "https://github.com/venkateshkamath/Orbit-App",
+      "visual": "social"
+    },
+    {
+      "id": "proj_pii_shield",
+      "name": "PII Shield",
+      "meta": "Hackathon - Privacy - Python, React",
+      "icon": "EyeOff",
+      "description": "PII Shield detects and redacts sensitive information (Aadhaar, PAN numbers) from documents entirely on the user's device, with no data ever leaving their machine. Features a local OCR pipeline and a stateless, zero-retention backend.",
+      "metrics": ["36-Hour Hackathon", "Local OCR", "Zero Data Retention"],
+      "stack": ["Python", "FastAPI", "Tesseract OCR", "React"],
+      "href": "https://github.com/sathvik-dvdg/pii-shield",
+      "visual": "shield"
+    },
+    {
+      "id": "proj_hvsapp",
+      "name": "HVSapp",
+      "meta": "Hackathon - Healthcare - FastAPI, Celery",
+      "icon": "Hospital",
+      "description": "HVSapp streamlines patient handoffs and medication tracking between healthcare staff, using speech-to-text to reduce manual data-entry errors. Features background transcription task queues and PHI field encryption.",
+      "metrics": ["48-Hour Hackathon", "Speech-to-Text ASR", "PHI Encryption"],
+      "stack": ["FastAPI", "PostgreSQL", "Celery", "React Native", "Docker"],
+      "href": "https://github.com/sathvik-dvdg/HVSapp",
+      "visual": "health"
+    },
+    {
+      "id": "proj_shopping_cart",
+      "name": "Shopping Cart App",
+      "meta": "Solo - Full-Stack E-commerce",
+      "icon": "ShoppingCart",
+      "description": "A complete e-commerce mobile app with product browsing, cart management, and checkout, built and deployed independently. Configured with rate limiting, database connection pooling, and error monitoring.",
+      "metrics": ["Connection Pooling", "Rate Limiting", "Sentry Monitoring"],
+      "stack": ["React Native", "Node.js", "Express.js", "MongoDB", "Sentry"],
+      "href": "https://github.com/sathvik-dvdg/shopping-app",
+      "visual": "cart"
+    }
+  ],
+  "achievements": [
+    {
+      "title": "Smart India Hackathon (SIH) 2025 - Team Cipher Squad",
+      "organization": "LAVIS - Loan Asset Verification & Information System",
+      "date": "Oct 2025",
+      "badge": "National Round Selection",
+      "description": "Selected for Smart India Hackathon (SIH) 2025 national round with LAVIS, a machine learning-based collateral verification solution."
+    },
+    {
+      "title": "Core Unleashed Hackathon - Team Lead",
+      "organization": "PII Shield",
+      "date": "April 2025",
+      "badge": "Team Lead",
+      "description": "Led a team to build PII Shield within a 36-hour constraint, driving core architecture decisions and managing code quality across the team."
+    },
+    {
+      "title": "Healthcare Hackathon - Team Lead",
+      "organization": "HVSapp",
+      "date": "Oct 2025",
+      "badge": "Team Lead",
+      "description": "Led backend development for HVSapp, a clinical handoff platform, within a 48-hour deadline."
+    },
+    {
+      "title": "Open Source Contributor - Social Networking Platform",
+      "organization": "Ongoing - Active Contributor",
+      "date": "Ongoing",
+      "badge": "5+ PRs Merged",
+      "description": "Merged 5+ pull requests as an open-source contributor, improving event discovery and session handling on a social networking platform."
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.E. in Computer Science & Engineering",
+      "institution": "Canara Engineering College, Mangalore - VTU",
+      "year": "Expected 2026",
+      "score": "SGPA: 8.14 (5th Semester)",
+      "icon": "GraduationCap"
+    },
+    {
+      "degree": "HSC - Pre-University (Science)",
+      "institution": "KSEAB - Karnataka State Board",
+      "year": "Class XII",
+      "score": "88.96%",
+      "icon": "GraduationCap"
+    },
+    {
+      "degree": "SSC - Secondary School",
+      "institution": "KSEAB - Karnataka State Board",
+      "year": "Class X",
+      "score": "92.96%",
+      "icon": "GraduationCap"
+    }
+  ],
+  "contactLinks": [
+    {
+      "label": "Email",
+      "text": "sathvik.devadiga88@gmail.com",
+      "href": "mailto:sathvik.devadiga88@gmail.com",
+      "icon": "Mail"
+    },
+    {
+      "label": "LinkedIn",
+      "text": "linkedin.com/in/sathvik-devadiga",
+      "href": "https://www.linkedin.com/in/sathvik-devadiga/",
+      "icon": "Linkedin"
+    },
+    {
+      "label": "GitHub",
+      "text": "github.com/sathvik-dvdg",
+      "href": "https://github.com/sathvik-dvdg",
+      "icon": "Github"
+    },
+    {
+      "label": "Phone",
+      "text": "+91 88675 98749",
+      "href": "tel:+918867598749",
+      "icon": "Phone"
+    }
+  ],
+  "openSourceHighlights": [
+    { "value": "5+", "label": "Merged PRs" },
+    { "value": "22%", "label": "Payload Reduction" },
+    { "value": "JWT", "label": "Session Security" }
+  ],
+  "footerLinks": [
+    { "label": "GitHub", "href": "https://github.com/sathvik-dvdg" },
+    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/sathvik-devadiga/" },
+    { "label": "Email", "href": "mailto:sathvik.devadiga88@gmail.com" }
+  ],
+  "resumeHref": "/sathvik-devadiga-resume-2026.pdf",
+  "profileJsonLd": {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Sathvik T Devadiga",
+    "url": "https://sathvik-dvdg.github.io/portfolio",
+    "email": "mailto:sathvik.devadiga88@gmail.com",
+    "jobTitle": "Software Engineering Student",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Mangalore",
+      "addressCountry": "India"
+    },
+    "sameAs": [
+      "https://github.com/sathvik-dvdg",
+      "https://www.linkedin.com/in/sathvik-devadiga/"
+    ],
+    "knowsAbout": [
+      "Backend Engineering",
+      "Cloud Infrastructure",
+      "Machine Learning",
+      "Cybersecurity",
+      "Graph Neural Networks"
+    ]
+  }
+}

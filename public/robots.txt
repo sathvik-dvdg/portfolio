@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sathvik.dev/sitemap.xml
+Sitemap: https://sathvik-dvdg.github.io/portfolio/sitemap.xml

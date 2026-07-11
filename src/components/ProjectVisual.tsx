@@ -30,25 +30,34 @@ export function ProjectVisual({ visual }: ProjectVisualProps) {
         </>
       ) : null}
 
-      {visual === "vision" ? (
+      {visual === "social" ? (
         <>
-          <span className="face-ring" />
-          <span className="landmark lm-one" />
-          <span className="landmark lm-two" />
-          <span className="landmark lm-three" />
-          <span className="landmark lm-four" />
-          <span className="confidence">0.88</span>
-          <span className="visual-label">stress probability</span>
+          <span className="orbit-hub" />
+          <span className="orbit-user user-one" />
+          <span className="orbit-user user-two" />
+          <span className="orbit-user user-three" />
+          <span className="radar-sweep" />
+          <span className="visual-label">Orbit Social Discover</span>
         </>
       ) : null}
 
-      {visual === "tasks" ? (
+      {visual === "shield" ? (
         <>
-          <span className="task-line checked" />
-          <span className="task-line" />
-          <span className="task-line short" />
-          <span className="auth-pill">JWT</span>
-          <span className="visual-label">RBAC queue</span>
+          <span className="shield-base" />
+          <span className="redact-bar bar-a" />
+          <span className="redact-bar bar-b" />
+          <span className="scan-line" />
+          <span className="visual-label">PII Shield Redact</span>
+        </>
+      ) : null}
+
+      {visual === "cart" ? (
+        <>
+          <span className="cart-outline" />
+          <span className="cart-item item-one" />
+          <span className="cart-item item-two" />
+          <span className="checkout-progress" />
+          <span className="visual-label">Shopping Cart Flow</span>
         </>
       ) : null}
     </div>

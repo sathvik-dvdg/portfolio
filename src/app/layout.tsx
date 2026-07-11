@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sathvik.dev"),
+  metadataBase: new URL("https://sathvik-dvdg.github.io/portfolio"),
   title: {
     default: "Sathvik T Devadiga - Backend, Cloud & ML Portfolio",
     template: "%s | Sathvik T Devadiga"
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://sathvik.dev",
+    url: "https://sathvik-dvdg.github.io/portfolio",
     title: "Sathvik T Devadiga - Backend, Cloud & ML Portfolio",
     description:
       "Cloud-native microservices, graph-based intrusion detection, healthcare workflows, and ML inference systems.",

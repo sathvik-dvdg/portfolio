@@ -47,7 +47,7 @@ export function Nav() {
   return (
     <header className={`site-nav ${isScrolled ? "is-scrolled" : ""}`}>
       <a className="nav-logo" href="#hero" onClick={closeMenu} aria-label="Go to hero section">
-        sathvik.dev
+        sathvik-dvdg
       </a>
 
       <button

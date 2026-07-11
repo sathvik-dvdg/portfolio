@@ -8,7 +8,7 @@ export function ContactGrid() {
   const [copied, setCopied] = useState(false);
 
   const emailLink = contactLinks.find((link) => link.label === "Email");
-  const emailAddress = emailLink ? emailLink.href.replace("mailto:", "") : "devadigasathwik88@gmail.com";
+  const emailAddress = emailLink ? emailLink.href.replace("mailto:", "") : "sathvik.devadiga88@gmail.com";
 
   const handleCopyEmail = (e: React.MouseEvent<HTMLAnchorElement>) => {
     // Copy to clipboard

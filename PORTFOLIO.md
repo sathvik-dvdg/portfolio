@@ -18,9 +18,9 @@
 5. [Skills Section](#5-skills-section)
 6. [Featured Projects — Framework](#6-featured-projects--framework)
 7. [GraphSentinel Case Study](#7-graphsentinel-case-study)
-8. [HVSApp Case Study](#8-hvsapp-case-study)
-9. [Stress Monitoring System Case Study](#9-stress-monitoring-system-case-study)
-10. [Task Manager Case Study](#10-task-manager-case-study)
+8. [Orbit Case Study](#8-orbit-case-study)
+9. [Hackathon Case Studies (PII Shield & HVSapp)](#9-hackathon-case-studies-pii-shield--hvsapp)
+10. [Shopping Cart App Case Study](#10-shopping-cart-app-case-study)
 11. [Open Source Section](#11-open-source-section)
 12. [Achievements Section](#12-achievements-section)
 13. [Education Section](#13-education-section)
@@ -107,15 +107,16 @@ Recruiters spend the first 8 seconds reading only the hero. If the hero doesn't 
 ## 2.1 Navigation Hierarchy
 
 ```
-sathvik.dev/
+sathvik-dvdg.github.io/portfolio/
 ├── Hero                    (above the fold, always visible)
 ├── About                   (who you are, 3 paragraphs)
 ├── Skills                  (technical capability matrix)
-├── Projects                (4 project cards → case study modals)
+├── Projects                (5 project cards → case study modals)
 │   ├── GraphSentinel        (flagship)
-│   ├── Stress Monitor       (ML depth)
-│   ├── HVSApp               (full-stack + healthcare domain)
-│   └── Task Manager         (foundations)
+│   ├── Orbit                (internship)
+│   ├── PII Shield           (hackathon)
+│   ├── HVSapp               (hackathon)
+│   └── Shopping Cart App    (solo)
 ├── Open Source             (PR activity, contribution data)
 ├── Achievements            (SIH, hackathons, metrics)
 ├── Education               (timeline cards)
@@ -340,8 +341,8 @@ The skills section must communicate context, not just presence. A tag that says 
 *Java used in competitive programming (LeetCode, Codeforces); Python as primary ML + backend language; JS for full-stack React/Node work.*
 
 ### Backend
-`Node.js` · `Express.js` · `Flask` · `FastAPI` · `REST API Design` · `WebSocket`  
-*Node/Express: Task Manager, HVSApp; Flask: Stress Monitor; FastAPI: HVSApp v2*
+`Node.js` · `Express.js` · `FastAPI` · `REST API Design` · `WebSocket`  
+*Node/Express: Orbit, Shopping Cart App; FastAPI: GraphSentinel, PII Shield, HVSapp*
 
 ### Cloud & Infrastructure
 `AWS EC2` · `AWS S3` · `AWS VPC` · `MongoDB Atlas` · `Docker` · `Linux Admin` · `CI/CD Pipelines`
@@ -568,20 +569,20 @@ GitHub Actions CI: lint → test → docker build → push to registry
 
 ---
 
-# 8. HVSApp Case Study
+# 8. Orbit Case Study
 
 ## 8.1 Project Card Copy — Final Version
 
-**Name:** HVSApp — Healthcare Hand-Off Validation System  
-**Meta:** Healthcare · Full-Stack · React Native, FastAPI, PostgreSQL  
-**Icon:** 🏥  
+**Name:** Orbit  
+**Meta:** Software Engineering Intern · Social · Mobile App (Feb 2026 – Present)
+**Icon:** 📍  
 
 **Description:**
-> Built a mobile-first healthcare coordination platform to eliminate communication gaps in clinical patient hand-off workflows between hospital departments. Designed a dual-service backend: a FastAPI service handling real-time WebSocket push notifications for nursing station alerts, and a Node.js REST API managing the full patient transfer lifecycle. PostgreSQL schema with foreign key constraints and transaction-level isolation ensures zero data loss across concurrent department updates.
+> Orbit is a mobile social platform for discovering local community events and connecting with nearby users. Built with real-time chat via WebSockets, geolocation-based event discovery, and a containerized backend with Sentry error monitoring. Managed production deployment and monitoring.
 
-**Metrics:** `100% Data Consistency · Real-Time Alerts · Clinical Workflow`
+**Metrics:** `WebSocket Chat · Geo-Discovery · Production Monorepo`
 
-**Stack:** `React Native` `Node.js` `FastAPI` `PostgreSQL` `Redis` `WebSocket` `JWT`
+**Stack:** `React Native` `Node.js` `Express.js` `MongoDB` `WebSocket` `Docker` `Sentry`
 
 ## 8.2 Architecture Documentation
 
@@ -589,157 +590,147 @@ GitHub Actions CI: lint → test → docker build → push to registry
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    React Native App                      │
-│  Nurse Dashboard  |  Patient Record  |  Hand-off Form   │
+│                    React Native Client                  │
+│  Map View  |  Event Discovery  |  Real-Time Chat        │
 └──────────────┬────────────────────────────┬─────────────┘
-               │ REST (JWT-auth)             │ WebSocket
+               │ REST (HTTP/JSON)           │ WebSockets (ws://)
     ┌──────────▼──────────┐       ┌──────────▼──────────┐
-    │    Node.js/Express  │       │      FastAPI         │
-    │    Patient API      │       │    Notification Svc  │
+    │    Express API      │       │    WebSocket Svc    │
+    │    Backend Gateway  │       │    (Real-Time Chat) │
     └──────────┬──────────┘       └──────────┬──────────┘
-               │                              │
+               │                             │
     ┌──────────▼──────────┐       ┌──────────▼──────────┐
-    │     PostgreSQL       │       │        Redis         │
-    │  (Patient Records)   │       │  (Session + Pubsub) │
+    │     MongoDB         │       │     Redis           │
+    │ (Geospatial Indices)│       │ (Pub/Sub & Cache)   │
     └─────────────────────┘       └─────────────────────┘
-```
-
-### Database Schema (Core Tables)
-
-```sql
-patients          (id, name, dob, ward_id, current_status)
-hand_offs         (id, patient_id, from_dept, to_dept, nurse_id, timestamp, status)
-alerts            (id, hand_off_id, recipient_dept, delivered_at, acknowledged_at)
-notes             (id, hand_off_id, body, created_by, created_at)
-```
-
-**Key constraint:** `hand_offs.status` uses a PostgreSQL `ENUM` type (`pending`, `in_transit`, `completed`, `flagged`) with a CHECK constraint preventing backward state transitions — this is the mechanism guaranteeing 100% data consistency.
-
-### Authentication Flow
-
-```
-Login → bcrypt password verify → JWT (access 15min + refresh 7d)
-     → Refresh token stored in Redis with TTL
-     → All API routes: JWT middleware → role check (nurse/admin/viewer)
 ```
 
 ### Technical Challenges
 
-1. **Concurrent hand-off updates:** Two nurses editing the same patient record simultaneously required optimistic locking at the database level (PostgreSQL `version` column, `WHERE version = $last_seen`). Conflicts return a 409 and prompt the user to reload.
-
-2. **WebSocket reliability on mobile:** React Native WebSocket connections drop on network transitions. Implemented exponential backoff reconnection (max 5 attempts, 2s base delay) in the client, with Redis Pub/Sub on the server ensuring messages are replayed within 30 seconds of reconnection.
-
-3. **Offline-first consideration:** Hospital environments have unreliable internal Wi-Fi. Added Redux Persist to cache the last-known patient list locally, displayed with a "Last synced 3 minutes ago" indicator when offline.
+1. **Real-time bidirectional communication using WebSockets:** Ensured chat updates are delivered instantly by deploying a dedicated WebSocket service. To scale connections across instances, used Redis Pub/Sub as an message broker to broadcast events to all active client sockets.
+2. **WebSocket memory leaks in production:** Identified a connection retention issue in Node.js where disconnected sockets were not garbage collected. Resolved this by introducing a heartbeat ping-pong protocol and cleaning up stale socket listeners explicitly.
+3. **Geospatial event queries at scale:** Used MongoDB's 2dsphere indexes for coordinate query resolution, ensuring events are retrieved efficiently based on proximity calculations.
 
 ### Screenshots Required
 
-1. Mobile app: Patient hand-off form with fields visible
-2. Mobile app: Real-time alert arriving (push notification style)
-3. PostgreSQL schema diagram (generated with DBeaver or TablePlus)
-4. API endpoint documentation (Swagger/OpenAPI auto-generated by FastAPI)
-5. Redis Pub/Sub architecture diagram
+1. Mobile App: Live map showing user pin and nearby events
+2. Mobile App: Active chat interface with read receipts
+3. Sentry Dashboard showing real-time error telemetry and traces
+4. Docker Compose deployment configuration
 
 ---
 
-# 9. Stress Monitoring System Case Study
+# 9. Hackathon Case Studies (PII Shield & HVSapp)
 
-## 9.1 Project Card Copy — Final Version
+## 9.1 PII Shield Case Study
 
-**Name:** Real-Time Stress Monitoring Engine  
-**Meta:** Computer Vision · ML · Flask, Scikit-learn, OpenCV  
-**Icon:** 🧠  
+### Project Card Copy — Final Version
+
+**Name:** PII Shield  
+**Meta:** Hackathon · Privacy · Python, React  
+**Icon:** 👁️‍🗨️  
 
 **Description:**
-> Built a real-time physiological stress classification system using facial landmark analysis as a proxy for autonomic nervous system state. A Random Forest classifier (trained on 12 facial geometry features) classifies stress level from webcam frames; an OpenCV preprocessing pipeline handles face detection, landmark extraction, and feature normalization. Flask serves inference via a `/predict` endpoint at under 400ms per frame. Achieved 88%+ accuracy on a held-out validation set with balanced class distribution.
+> PII Shield detects and redacts sensitive information (Aadhaar, PAN numbers) from documents entirely on the user's device, with no data ever leaving their machine. Features a local OCR pipeline and a stateless, zero-retention backend.
 
-**Metrics:** `88%+ Accuracy · <400ms Latency · Real-Time`
+**Metrics:** `36-Hour Hackathon · Local OCR · Zero Data Retention`
 
-**Stack:** `Python` `Flask` `OpenCV` `Scikit-learn` `Random Forest` `MediaPipe`
+**Stack:** `Python` `FastAPI` `Tesseract OCR` `React`
 
-## 9.2 Architecture Documentation
+### Architecture & Technical Challenges
 
-### ML Pipeline
-
-```
-Webcam Frame (640x480)
-        │
-        ▼
-OpenCV/MediaPipe Face Mesh
-  → 468 facial landmarks
-  → 12 feature extraction functions:
-     - eye aspect ratio (EAR)
-     - brow furrow distance
-     - lip compression ratio
-     - jaw tension proxy
-     - ... (8 more)
-        │
-        ▼
-StandardScaler (fitted on training set, serialized with joblib)
-        │
-        ▼
-Random Forest Classifier (100 estimators, max_depth=8)
-  → Probability score: Stress / Neutral / Alert
-        │
-        ▼
-Flask /predict endpoint
-  → JSON: { "class": "stress", "confidence": 0.87, "latency_ms": 312 }
-```
-
-### Feature Engineering
-
-12 features derived from 468 MediaPipe landmarks, chosen based on psychophysiological research on facial action units (AUs):
-
-| Feature | Description | Rationale |
-|---|---|---|
-| EAR (eye aspect ratio) | Blink rate proxy | Stress → reduced blink rate |
-| Brow angle | Brow raise/furrow | Stress → furrowed brow (AU4) |
-| Lip compression | Lip press ratio | Stress → compressed lips (AU23) |
-| Jaw width proxy | Masseter tension | Stress → jaw clenching |
-| Nasolabial fold depth | Smile/frown asymmetry | Emotional valence indicator |
-
-### Model Selection Rationale
-
-Random Forest was chosen over SVM and logistic regression because:
-- Handles feature interactions without explicit engineering
-- Provides `feature_importances_` for interpretability (eye features dominated at 34%)
-- Robust to minor landmark detection noise from head pose variation
-- Inference time: ~8ms per prediction (fast enough for 30fps pipeline)
-
-SVM was evaluated but inference at ~22ms was too slow for the target latency budget.
-
-### Deployment Architecture
-
-```
-Flask app (debug=False, threaded=True)
-├── /predict (POST, accepts base64 or multipart image)
-├── /stream (GET, SSE endpoint for demo dashboard)
-├── model.pkl (Random Forest, 2.1MB serialized)
-├── scaler.pkl (StandardScaler)
-└── Running on gunicorn (4 workers) in production
-```
+1. **Preserving strict data privacy:** Designed a stateless, zero-retention backend architecture. Documents are processed in-memory without ever being written to disk or database, ensuring complete privacy compliance.
+2. **Fallback for imprecise OCR spatial mapping:** Built a 3-tier fallback matching system to handle imperfect OCR outputs where characters were slightly misread, maintaining high redaction accuracy.
+3. **Optimizing local OCR performance:** Configured Tesseract OCR with page segmentation modes (PSM) specific to document types, speeding up text extraction on low-resource machines.
 
 ### Screenshots Required
 
-1. Demo dashboard showing live webcam feed with stress overlay
-2. Feature importance bar chart (matplotlib, dark theme)
-3. Confusion matrix for 3-class classification
-4. ROC curve for binary stress/non-stress
-5. API response JSON with confidence score
+1. React App: Upload dashboard showing document before and after redaction
+2. API Swagger Documentation (FastAPI) showing stateless endpoints
+3. Local OCR bounding box visualization
 
 ---
 
-# 10. Task Manager Case Study
+## 9.2 HVSapp Case Study
 
-## 10.1 Project Card Copy
+### Project Card Copy — Final Version
 
-**Name:** Task Manager Web Application  
-**Meta:** Full-Stack · React.js, Node.js, MongoDB  
-**Icon:** ✅  
+**Name:** HVSapp  
+**Meta:** Hackathon · Healthcare · FastAPI, Celery  
+**Icon:** 🏥  
 
 **Description:**
-> Full-stack task management application with JWT-based authentication, role-based access control (user/admin), and full CRUD for tasks with priority queuing. The REST API follows OpenAPI conventions with proper HTTP status codes, rate limiting (express-rate-limit, 100 req/min per IP), and input validation (Joi). MongoDB Atlas stores tasks with user-scoped collection-level access control, preventing cross-user data access.
+> HVSapp streamlines patient handoffs and medication tracking between healthcare staff, using speech-to-text to reduce manual data-entry errors. Features background transcription task queues and PHI field encryption.
 
-**Stack:** `React.js` `Node.js` `Express.js` `MongoDB` `JWT` `Tailwind CSS`
+**Metrics:** `48-Hour Hackathon · Speech-to-Text ASR · PHI Encryption`
+
+**Stack:** `FastAPI` `PostgreSQL` `Celery` `React Native` `Docker`
+
+### System Overview
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    React Native Client                  │
+└──────────────┬────────────────────────────┬─────────────┘
+               │ REST (ASR Request)         │ Status Poll
+    ┌──────────▼──────────┐       ┌──────────▼──────────┐
+    │    FastAPI Web      │       │    FastAPI Web      │
+    │    Gateway API      │       │    Status Checking  │
+    └──────────┬──────────┘       └──────────▲──────────┘
+               │                             │
+    ┌──────────▼──────────┐       ┌──────────│──────────┐
+    │     Celery Broker   │──────►│    Celery Workers   │
+    │     (Redis)         │       │  (ASR Transcription)│
+    └──────────┬──────────┘       └──────────┬──────────┘
+               │                             │
+    ┌──────────▼──────────┐                  │
+    │     PostgreSQL      │◄─────────────────┘
+    │  (PHI Encrypted)    │
+    └─────────────────────┘
+```
+
+### Technical Challenges
+
+1. **Decoupling slow transcription work from Web API thread:** Audio transcription tasks are heavy and would block Web requests. Integrated Celery workers with a Redis broker to queue speech-to-text tasks, keeping the API gateway highly responsive.
+2. **Evolving schema & data security (PHI Encryption):** Handled Protected Health Information (PHI) by encrypting sensitive patient fields before storing them in PostgreSQL. Used cryptography libraries to encrypt/decrypt on-the-fly.
+3. **Evolving domain models:** Deployed a domain-driven schema with modular PostgreSQL databases separating auth, medication lists, and handoff history.
+
+### Screenshots Required
+
+1. Mobile App: Clinical voice note handoff view
+2. Swagger UI documentation showcasing PHI encrypted fields
+3. Docker Compose orchestration for Web, DB, Redis, and Celery workers
+
+---
+
+# 10. Shopping Cart App Case Study
+
+## 10.1 Project Card Copy — Final Version
+
+**Name:** Shopping Cart App  
+**Meta:** Solo · Full-Stack E-commerce  
+**Icon:** 🛒  
+
+**Description:**
+> A complete e-commerce mobile app with product browsing, cart management, and checkout, built and deployed independently. Configured with rate limiting, database connection pooling, and error monitoring.
+
+**Metrics:** `Connection Pooling · Rate Limiting · Sentry Monitoring`
+
+**Stack:** `React Native` `Node.js` `Express.js` `MongoDB` `Sentry`
+
+## 10.2 Architecture Documentation
+
+### Technical Challenges
+
+1. **Database connection stability under load:** Faced database drop-offs during simulated concurrent users. Resolved this by tuning MongoDB's connection pool parameters (`maxPoolSize=50`, `minPoolSize=10`) and optimizing query indexing.
+2. **API rate limiting and security hygiene:** Prevented denial-of-service and brute-force attacks by integrating `express-rate-limit` middlewares, set to 100 requests per minute per IP.
+3. **Monorepo setup and service isolation:** Structured a monorepo workspace for clean code sharing and isolated development between mobile components and backend APIs.
+
+### Screenshots Required
+
+1. Mobile App: Product catalogue and checkout screen
+2. Sentry Dashboard showing error traces and CPU usage profiles
+3. API load testing metrics (Artillery / Autocannon logs)
 
 ---
 
@@ -918,8 +909,8 @@ desktop:
 
 | Icon | Text | Label | Link |
 |---|---|---|---|
-| ✉ | devadigasathwik88@gmail.com | Email | mailto: |
-| in | linkedin.com/in/sathvik-t-devadiga | LinkedIn | https://linkedin.com/in/sathvik-t-devadiga |
+| ✉ | sathvik.devadiga88@gmail.com | Email | mailto: |
+| in | linkedin.com/in/sathvik-devadiga | LinkedIn | https://www.linkedin.com/in/sathvik-devadiga/ |
 | ⌥ | github.com/sathvik-dvdg | GitHub | https://github.com/sathvik-dvdg |
 | ☏ | +91 88675 98749 | Phone | tel: |
 
@@ -948,7 +939,7 @@ In v2, add an inline contact form with:
 - Frontend validation: required fields, email format, message min 20 chars
 - Backend: Formspree or Resend API
 - Success state: "Message sent. I'll respond within 24 hours."
-- Error state: "Something went wrong. Please email directly at devadigasathwik88@gmail.com"
+- Error state: "Something went wrong. Please email directly at sathvik.devadiga88@gmail.com"
 
 ---
 
@@ -1461,18 +1452,18 @@ document.addEventListener('visibilitychange', () => {
   <!-- Open Graph -->
   <meta property="og:title" content="Sathvik T Devadiga — Backend Engineer">
   <meta property="og:description" content="Building cloud-native microservices, cyber defense systems, and ML-powered applications.">
-  <meta property="og:image" content="https://sathvik.dev/og-image.jpg">
-  <meta property="og:url" content="https://sathvik.dev">
+  <meta property="og:image" content="https://sathvik-dvdg.github.io/portfolio/og-image.jpg">
+  <meta property="og:url" content="https://sathvik-dvdg.github.io/portfolio">
   <meta property="og:type" content="website">
   
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Sathvik T Devadiga — Backend Engineer">
   <meta name="twitter:description" content="Building cloud-native microservices, cyber defense systems, and ML-powered applications.">
-  <meta name="twitter:image" content="https://sathvik.dev/og-image.jpg">
+  <meta name="twitter:image" content="https://sathvik-dvdg.github.io/portfolio/og-image.jpg">
   
   <!-- Canonical -->
-  <link rel="canonical" href="https://sathvik.dev">
+  <link rel="canonical" href="https://sathvik-dvdg.github.io/portfolio">
 </head>
 ```
 
@@ -1483,8 +1474,8 @@ document.addEventListener('visibilitychange', () => {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Sathvik T Devadiga",
-  "url": "https://sathvik.dev",
-  "email": "devadigasathwik88@gmail.com",
+  "url": "https://sathvik-dvdg.github.io/portfolio",
+  "email": "sathvik.devadiga88@gmail.com",
   "jobTitle": "Software Engineering Student",
   "alumniOf": {
     "@type": "CollegeOrUniversity",
@@ -1494,7 +1485,7 @@ document.addEventListener('visibilitychange', () => {
   "knowsAbout": ["Backend Engineering", "Cloud Computing", "Machine Learning", "Cybersecurity", "Graph Neural Networks"],
   "sameAs": [
     "https://github.com/sathvik-dvdg",
-    "https://linkedin.com/in/sathvik-t-devadiga"
+    "https://www.linkedin.com/in/sathvik-devadiga/"
   ]
 }
 ```
@@ -1552,10 +1543,10 @@ portfolio/
 │   │   ├── projects/
 │   │   │   ├── graphsentinel-arch.webp
 │   │   │   ├── hvsapp-schema.webp
-│   │   │   └── stress-monitor-demo.webp
+│   │   │   └── orbit-demo.webp
 │   │   └── icons/         ← SVG project icons
 │   └── resume/
-│       └── sathvik-devadiga-resume.pdf
+│       └── sathvik-devadiga-resume-2026.pdf
 ├── robots.txt
 └── sitemap.xml
 ```
