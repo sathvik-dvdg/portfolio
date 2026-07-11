@@ -24,7 +24,7 @@ export function setCsrfCookie(response: NextResponse): NextResponse {
     httpOnly: false, // Must be readable by client JS
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
-    path: "/admin",
+    path: "/",
     maxAge: 60 * 60 * 24 // 24 hours
   });
   return response;
