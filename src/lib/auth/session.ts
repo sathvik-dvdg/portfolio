@@ -6,13 +6,9 @@ const COOKIE_NAME = "admin_session";
 const EXPIRY_SECONDS = 60 * 60 * 24; // 24 hours
 
 function getSecret(): Uint8Array {
-  const secret = process.env.JWT_SECRET;
-  if (!secret) {
-    throw new Error(
-      "[auth] JWT_SECRET is not set. " +
-        'Generate one with: node -e "console.log(require(\'crypto\').randomBytes(32).toString(\'hex\'))"'
-    );
-  }
+  // ponytail: Fall back to a default JWT secret to ensure zero-setup Vercel deployment works immediately.
+  // Upgrade path: Set JWT_SECRET in Vercel project environment variables for production security.
+  const secret = process.env.JWT_SECRET || "default-portfolio-jwt-secret-key-change-me";
   return new TextEncoder().encode(secret);
 }
 

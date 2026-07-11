@@ -6,8 +6,8 @@ import { setCsrfCookie } from "@/lib/auth/csrf";
 const COOKIE_NAME = "admin_session";
 
 function getSecret(): Uint8Array {
-  const secret = process.env.JWT_SECRET;
-  if (!secret) return new TextEncoder().encode("fallback-dev-only");
+  // ponytail: Fall back to a default JWT secret to ensure zero-setup Vercel deployment works immediately.
+  const secret = process.env.JWT_SECRET || "default-portfolio-jwt-secret-key-change-me";
   return new TextEncoder().encode(secret);
 }
 
