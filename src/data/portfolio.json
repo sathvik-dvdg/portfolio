@@ -89,7 +89,8 @@
         "MongoDB",
         "PostgreSQL",
         "Redis",
-        "SQLite"
+        "SQLite",
+        "git"
       ]
     },
     {
